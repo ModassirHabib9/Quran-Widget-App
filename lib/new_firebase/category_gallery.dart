@@ -119,9 +119,6 @@ class _CategoriesGalleryState extends State<CategoriesGallery> {
                                     colorBuilder: (b) => b
                                         ? ColorResources.BOTTOM_BAR_SELECTED
                                         : ColorResources.BOTTOM_BAR_SELECTED,
-                                    /*iconBuilder: (value) => value
-                              ? Icon(Icons.coronavirus_rounded)
-                              : Icon(Icons.tag_faces_rounded),*/
                                     textBuilder: (value) => value
                                         ? Center(child: Text(''))
                                         : Center(child: Text('')),
@@ -134,11 +131,15 @@ class _CategoriesGalleryState extends State<CategoriesGallery> {
                                             ColorResources.BOTTOM_BAR_SELECTED),
                                     textDirection: TextDirection.rtl),
                               )),
-                          Text("    فئة القطعة",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  color: ColorResources.BOTTOM_BAR_SELECTED),
-                              textDirection: TextDirection.rtl),
+                          Text(
+                            "    فئة القطعة",
+                            style: TextStyle(
+                                fontFamily: 'franklin_gothic',
+                                fontWeight: FontWeight.w500,
+                                fontSize: 25,
+                                color: ColorResources
+                                    .BOTTOM_BAR_SELECTED), /*textDirection: TextDirection.rtl*/
+                          ),
                           Container(
                               decoration: BoxDecoration(
                                   color: ColorResources.WHITE,
@@ -170,12 +171,19 @@ class _CategoriesGalleryState extends State<CategoriesGallery> {
                                         width: 20,
                                         height: 17,
                                       ),
-                                      trailing: Text("إشباع",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: ColorResources
-                                                  .BOTTOM_BAR_SELECTED),
-                                          textDirection: TextDirection.rtl),
+                                      trailing: Container(
+                                          child: Text(
+                                              widget.wallpaperList!
+                                                  .elementAt(_currentIndex)
+                                                  .complete_ayat,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  fontSize: 18,
+                                                  color: ColorResources
+                                                      .BOTTOM_BAR_SELECTED),
+                                              textDirection:
+                                                  TextDirection.rtl)),
                                     )),
                                 Container(
                                     // height: 60,
@@ -187,19 +195,47 @@ class _CategoriesGalleryState extends State<CategoriesGallery> {
                                           color: ColorResources
                                               .BOTTOM_BAR_SELECTED,
                                           fontWeight: FontWeight.bold),
-                                      widget.wallpaperList!
+                                      /*widget.wallpaperList!
                                           .elementAt(_currentIndex)
-                                          .complete_ayat,
-                                      // "يمكنك اختيار التصنيف الذي تريده من خلال الذهاب الى صفحة التصنيفات ثم الضغط على التصنيف والضغط على زر ",
+                                          .complete_ayat*/
+                                      "يمكنك اختيار التصنيف الذي تريده من خلال الذهاب الى صفحة التصنيفات ثم الضغط على التصنيف والضغط على زر ",
                                       textAlign: TextAlign.center,
                                     )),
                               ])),
+                          SizedBox(height: 10),
                           Text("موضوع القطعة",
                               style: TextStyle(
+                                fontFamily: 'franklin_gothic',
+                                fontWeight: FontWeight.w500,
                                 fontSize: 25,
                                 color: ColorResources.BOTTOM_BAR_SELECTED,
                               ),
                               textDirection: TextDirection.rtl),
+                          Card(
+                              elevation: 1,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(30)),
+                              child: ListTile(
+                                dense: true,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(30)),
+                                visualDensity:
+                                    VisualDensity(horizontal: 0, vertical: -1),
+                                tileColor: ColorResources.WHITE,
+                                leading: Image.asset(
+                                  Images.share,
+                                  width: 20,
+                                  height: 17,
+                                ),
+                                trailing: Text("إشباع",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color:
+                                            ColorResources.BOTTOM_BAR_SELECTED),
+                                    textDirection: TextDirection.rtl),
+                              )),
                         ],
                       ),
                     )

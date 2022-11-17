@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:widget_app/utills/colors_resources.dart';
 import 'package:widget_app/utills/images_sources.dart';
 
+import 'category_gallery.dart';
 import 'category_manager.dart';
+import 'fav.dart';
 import 'models/categories.dart';
 
 class Home extends StatefulWidget {
@@ -36,9 +38,12 @@ class _HomeState extends State<Home> {
     );
   }
 
+  bool? _hasBeenPressed1 = true;
+
   ///bottom Grid
-  List<String> _text2 = ['تريد النجاح', 'اشعر'];
-  List<String> list2 = [Images.grid_bottom, Images.plus_addition];
+  List<String> _text2 = ['تريد النجاح'];
+  List<String> list2 = [Images.grid_bottom];
+  List<CategoriesModel>? wallpaperList;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -61,7 +66,7 @@ class _HomeState extends State<Home> {
                 child: Card(
                   elevation: 10,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                   child: Container(
                       padding:
@@ -75,6 +80,7 @@ class _HomeState extends State<Home> {
                   textDirection: TextDirection.rtl,
                   style: TextStyle(
                       fontFamily: 'franklin_gothic',
+                      fontWeight: FontWeight.w600,
                       fontSize: 25,
                       color: ColorResources.BOTTOM_BAR_SELECTED),
                 )),
@@ -87,71 +93,69 @@ class _HomeState extends State<Home> {
                   reverse: false,
                   primary: false,
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio: 1.9 / 2,
-                      mainAxisSpacing: 5,
-                      crossAxisSpacing: 0,
+                      childAspectRatio: 1.6 / 2,
+                      mainAxisSpacing: 7,
+                      crossAxisSpacing: 5,
                       crossAxisCount: 3),
                   itemCount: categories.length,
                   itemBuilder: (BuildContext context, int index) {
                     return InkResponse(
-                      onTap: () => Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return CategoryManager(
-                            category: categories.elementAt(index));
-                      })),
-                      child: Card(
-                        elevation: 10,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                  width: 50,
-                                  height: 50,
-                                  child: Image.network(
-                                    categoryImages.elementAt(index) == null
-                                        ? "https://firebasestorage.googleapis.com/v0/b/arabic-9b31b.appspot.com/o/Categories%2Fgird_2.png?alt=media&token=5380c906-8753-4f92-a114-07fba1078039"
-                                        : categoryImages.elementAt(index),
-                                    loadingBuilder:
-                                        (context, child, loadingProgress) {
-                                      if (loadingProgress == null) return child;
+                        onTap: () => Navigator.push(context,
+                                MaterialPageRoute(builder: (context) {
+                              return CategoryManager(
+                                  category: categories.elementAt(index));
+                            })),
+                        child: Card(
+                            elevation: 10,
+                            color: _hasBeenPressed1!
+                                ? ColorResources.WHITE
+                                : ColorResources.BOTTOM_BAR_SELECTED,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Container(
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                  Container(
+                                      width: 50,
+                                      height: 50,
+                                      child: Image.network(
+                                          categoryImages.elementAt(index) ==
+                                                  null
+                                              ? "https://firebasestorage.googleapis.com/v0/b/arabic-9b31b.appspot.com/o/Categories%2Fgird_2.png?alt=media&token=5380c906-8753-4f92-a114-07fba1078039"
+                                              : categoryImages.elementAt(index),
+                                          loadingBuilder: (context, child,
+                                              loadingProgress) {
+                                            if (loadingProgress == null)
+                                              return child;
 
-                                      return Center(
-                                          child: CircularProgressIndicator(
-                                              color: ColorResources
-                                                  .BOTTOM_BAR_SELECTED));
-                                      // You can use LinearProgressIndicator or CircularProgressIndicator instead
-                                    },
-                                    errorBuilder:
-                                        (context, error, stackTrace) =>
-                                            CircularProgressIndicator(
-                                                color: ColorResources
-                                                    .BOTTOM_BAR_SELECTED),
-                                    fit: BoxFit.fitWidth,
-                                  )),
-                              Container(
-                                alignment: Alignment.bottomCenter,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 5.0, horizontal: 10),
-                                child: Text(
-                                  categories.elementAt(index).toString(),
-                                  // textDirection: TextDirection.rtl,
-                                  textAlign: TextAlign.center,
-                                  softWrap: true,
-                                  style: TextStyle(
-                                      fontFamily: 'franklin_gothic',
-                                      fontSize: 12,
-                                      color:
-                                          ColorResources.BOTTOM_BAR_SELECTED),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
+                                            return Center(
+                                                child: CircularProgressIndicator(
+                                                    color: ColorResources
+                                                        .BOTTOM_BAR_SELECTED));
+                                          },
+                                          errorBuilder:
+                                              (context, error, stackTrace) =>
+                                                  CircularProgressIndicator(
+                                                      color: ColorResources
+                                                          .BOTTOM_BAR_SELECTED),
+                                          fit: BoxFit.fitWidth)),
+                                  Container(
+                                      alignment: Alignment.bottomCenter,
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5.0, horizontal: 10),
+                                      child: Text(
+                                        categories.elementAt(index).toString(),
+                                        // textDirection: TextDirection.rtl,
+                                        textAlign: TextAlign.center,
+                                        softWrap: true,
+                                        style: TextStyle(
+                                            fontFamily: 'franklin_gothic',
+                                            fontSize: 12,
+                                            color: ColorResources
+                                                .BOTTOM_BAR_SELECTED),
+                                      ))
+                                ]))));
                   },
                 ),
               ),
@@ -162,6 +166,7 @@ class _HomeState extends State<Home> {
                   "مجموعتي",
                   textDirection: TextDirection.rtl,
                   style: TextStyle(
+                      fontWeight: FontWeight.w600,
                       fontFamily: 'franklin_gothic',
                       fontSize: 25,
                       color: ColorResources.BOTTOM_BAR_SELECTED),
@@ -176,8 +181,8 @@ class _HomeState extends State<Home> {
                   height: MediaQuery.of(context).size.height * 0.20,
                   child: GridView.count(
                     childAspectRatio: 1.9 / 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 0,
+                    mainAxisSpacing: 7,
+                    crossAxisSpacing: 5,
                     crossAxisCount: 3,
                     shrinkWrap: true,
                     reverse: false,
@@ -186,46 +191,56 @@ class _HomeState extends State<Home> {
                         list2.length,
                         (index) => Directionality(
                             textDirection: TextDirection.rtl,
-                            child: Card(
-                              elevation: 10,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Container(
-                                    width: 60,
-                                    alignment: Alignment.center,
-                                    child: Column(
-                                      children: [
-                                        Image.asset(
-                                          list2[index],
-                                          width: double.infinity,
-                                          // height: 110,
-                                          fit: BoxFit.fitWidth,
+                            child: InkResponse(
+                                onTap: () => Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return Favorite(
+                                        wallpapersList: wallpaperList,
+                                      );
+                                    })),
+                                child: Card(
+                                  elevation: 10,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10)),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Container(
+                                        width: 60,
+                                        alignment: Alignment.center,
+                                        child: Column(
+                                          children: [
+                                            Image.asset(
+                                              list2[index],
+                                              width: double.infinity,
+                                              // height: 110,
+                                              fit: BoxFit.fitWidth,
+                                            ),
+                                            Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    vertical: 5),
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  _text2[index],
+                                                  textDirection:
+                                                      TextDirection.rtl,
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontFamily:
+                                                          'franklin_gothic',
+                                                      fontSize: 12,
+                                                      color: ColorResources
+                                                          .BOTTOM_BAR_SELECTED),
+                                                ))
+                                          ],
                                         ),
-                                        Container(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 5),
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              _text2[index],
-                                              textDirection: TextDirection.rtl,
-                                              textAlign: TextAlign.center,
-                                              style: TextStyle(
-                                                  fontFamily: 'franklin_gothic',
-                                                  fontSize: 12,
-                                                  color: ColorResources
-                                                      .BOTTOM_BAR_SELECTED),
-                                            ))
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ))),
+                                      )
+                                    ],
+                                  ),
+                                )))),
                   ),
                 ),
               ),
