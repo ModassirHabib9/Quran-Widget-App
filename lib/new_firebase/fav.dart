@@ -40,6 +40,9 @@ class _FavoriteState extends State<Favorite> {
             var favWallpaperManager = Provider.of<FavCategoryManager>(context);
 
             return ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
               title: InkResponse(
                 onTap: () async {
                   Navigator.of(context).push(
@@ -49,31 +52,13 @@ class _FavoriteState extends State<Favorite> {
                     ),
                   );
                 },
-                child: Container(
-                  clipBehavior: Clip.hardEdge,
-                  height: 40.0,
-                  decoration: ShapeDecoration(
-                    color: ColorResources.BOTTOM_BAR_SELECTED,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20.0),
-                    ),
-                    /*image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: CachedNetworkImageProvider(
-                          wallpapers.elementAt(index).url),
-                    ),*/
+                child: Card(
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20.0),
                   ),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0),
-                      color: Color(
-                          Theme.of(context).textTheme.caption!.color!.value ^
-                              0xffffff),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
+                  child:
+                      /*IconButton(
                             icon: Icon(
                               wallpapers.elementAt(index).isFavorite
                                   ? Icons.favorite
@@ -93,17 +78,19 @@ class _FavoriteState extends State<Favorite> {
                               wallpapers.elementAt(index).isFavorite =
                                   !wallpapers.elementAt(index).isFavorite;
                             },
-                          ),
-                          Text(
-                            wallpapers.elementAt(index).name,
-                            style: TextStyle(
-                                fontSize: 20.0,
-                                fontStyle: FontStyle.italic,
-                                color: ColorResources.BOTTOM_BAR_SELECTED,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ],
-                      ),
+                          ),*/
+                      Container(
+                    width: double.infinity,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
+                    child: Text(
+                      wallpapers.elementAt(index).complete_ayat,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontStyle: FontStyle.italic,
+                          color: ColorResources.BOTTOM_BAR_SELECTED,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),

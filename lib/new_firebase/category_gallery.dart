@@ -172,10 +172,10 @@ class _CategoriesGalleryState extends State<CategoriesGallery> {
                                         height: 17,
                                       ),
                                       trailing: Container(
-                                          child: Text(
-                                              widget.wallpaperList!
+                                          child: Text("Name",
+                                              /*widget.wallpaperList!
                                                   .elementAt(_currentIndex)
-                                                  .complete_ayat,
+                                                  .complete_ayat,*/
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
